@@ -3,22 +3,28 @@ package com.lexicaltwist;
 import java.util.Scanner;
 
 public class LexicalTwistPuzzle {
-    static boolean isReverse(String w1, String w2) {
-        return new StringBuilder(w1).reverse().toString().equals(w2);
+    static int vowels(String word) {
+        int count = 0;
+        for (char c : word.toLowerCase().toCharArray())
+            if ("aeiou".indexOf(c) != -1)
+                count++;
+        return count;
     }
 
-    static String transform(String word) {
-        return word.toUpperCase();
+    static int consonants(String word) {
+        int count = 0;
+        for (char c : word.toLowerCase().toCharArray())
+            if (Character.isLetter(c) && "aeiou".indexOf(c) == -1)
+                count++;
+        return count;
     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String w1 = sc.nextLine();
         String w2 = sc.nextLine();
-
-        if (isReverse(w1, w2))
-            System.out.println("Transformed = " + transform(w1));
-        else
-            System.out.println("No transformation — not reverse pair");
+        String combined = w1 + w2;
+        System.out.println("Vowels = " + vowels(combined));
+        System.out.println("Consonants = " + consonants(combined));
     }
 }

@@ -3,21 +3,18 @@ package com.lexicaltwist;
 import java.util.Scanner;
 
 public class LexicalTwistPuzzle {
-    static boolean isValid(String word) {
-        return word.matches("[a-zA-Z]+");
+    static boolean isReverse(String w1, String w2) {
+        return new StringBuilder(w1).reverse().toString().equals(w2);
     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Enter first word: ");
         String w1 = sc.nextLine();
-        System.out.print("Enter second word: ");
         String w2 = sc.nextLine();
 
-        if (!isValid(w1) || !isValid(w2)) {
-            System.out.println("Invalid input. Only single words allowed.");
-            return;
-        }
-        System.out.println("Valid inputs accepted");
+        if (isReverse(w1, w2))
+            System.out.println("Words are reverse of each other");
+        else
+            System.out.println("Words are NOT reverse of each other");
     }
 }

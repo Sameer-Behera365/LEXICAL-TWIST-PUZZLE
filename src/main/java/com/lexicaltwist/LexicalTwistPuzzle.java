@@ -12,7 +12,12 @@ public class LexicalTwistPuzzle {
         System.out.print("Enter second word: ");
         String word2 = scanner.nextLine();
 
-        System.out.println("Words: " + word1 + ", " + word2);
+        if (word1.contains(" ") || word2.contains(" ")) {
+            System.out.println(word1 + " is an invalid word");
+            return;
+        }
+
+        System.out.println("Valid inputs: " + word1 + ", " + word2);
 
         scanner.close();
     }

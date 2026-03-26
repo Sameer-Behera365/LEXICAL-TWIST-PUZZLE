@@ -35,8 +35,32 @@ public class LexicalTwistPuzzle {
                 }
             }
 
-            System.out.println("Combined: " + combined);
-            System.out.println("Vowels: " + vowels + ", Consonants: " + consonants);
+            if (vowels > consonants) {
+                int count = 0;
+                StringBuilder sb = new StringBuilder();
+                for (char c : combined.toCharArray()) {
+                    if ("AEIOU".indexOf(c) >= 0 && sb.indexOf(String.valueOf(c)) < 0) {
+                        sb.append(c);
+                        count++;
+                        if (count == 2) break;
+                    }
+                }
+                System.out.println("First 2 unique vowels: " + sb);
+            } else if (consonants > vowels) {
+                int count = 0;
+                StringBuilder sb = new StringBuilder();
+                for (char c : combined.toCharArray()) {
+                    if (Character.isLetter(c) && "AEIOU".indexOf(c) < 0
+                            && sb.indexOf(String.valueOf(c)) < 0) {
+                        sb.append(c);
+                        count++;
+                        if (count == 2) break;
+                    }
+                }
+                System.out.println("First 2 unique consonants: " + sb);
+            } else {
+                System.out.println("Vowels and consonants are equal");
+            }
         }
 
         sc.close();

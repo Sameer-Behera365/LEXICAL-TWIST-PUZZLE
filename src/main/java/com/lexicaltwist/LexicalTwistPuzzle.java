@@ -4,27 +4,28 @@ import java.util.Scanner;
 
 public class LexicalTwistPuzzle {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
         System.out.print("Enter first word: ");
-        String word1 = scanner.nextLine();
+        String w1 = sc.nextLine();
 
         System.out.print("Enter second word: ");
-        String word2 = scanner.nextLine();
+        String w2 = sc.nextLine();
 
-        if (word1.contains(" ") || word2.contains(" ")) {
-            System.out.println(word1 + " is an invalid word");
+        if (w1.contains(" ") || w2.contains(" ")) {
+            System.out.println(w1 + " is an invalid word");
             return;
         }
 
-        String reversed = new StringBuilder(word1).reverse().toString();
+        String rev = new StringBuilder(w1).reverse().toString();
 
-        if (reversed.equalsIgnoreCase(word2)) {
-            System.out.println("Words are reverse of each other.");
+        if (rev.equalsIgnoreCase(w2)) {
+            String transformed = rev.toLowerCase().replaceAll("[aeiou]", "@");
+            System.out.println("Transformed: " + transformed);
         } else {
-            System.out.println("Words are NOT reverse of each other.");
+            System.out.println("Not a reverse pair.");
         }
 
-        scanner.close();
+        sc.close();
     }
 }

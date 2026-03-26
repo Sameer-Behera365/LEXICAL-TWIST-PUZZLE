@@ -5,6 +5,8 @@ import java.util.Scanner;
 public class LexicalTwistPuzzle {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        WordValidator validator = new WordValidator();
+        LexicalAnalyzer analyzer = new LexicalAnalyzer();
 
         System.out.print("Enter first word: ");
         String w1 = sc.nextLine();
@@ -12,52 +14,24 @@ public class LexicalTwistPuzzle {
         System.out.print("Enter second word: ");
         String w2 = sc.nextLine();
 
-        if (w1.contains(" ") || w2.contains(" ")) {
+        if (!validator.isValid(w1) || !validator.isValid(w2)) {
             System.out.println(w1 + " is an invalid word");
             return;
         }
 
-        String rev = new StringBuilder(w1).reverse().toString();
+        String rev = analyzer.reverse(w1);
 
         if (rev.equalsIgnoreCase(w2)) {
-            String transformed = rev.toLowerCase().replaceAll("[aeiou]", "@");
-            System.out.println("Transformed: " + transformed);
+            System.out.println("Transformed: " + analyzer.transform(rev));
         } else {
             String combined = (w1 + w2).toUpperCase();
-            int vowels = 0;
-            int consonants = 0;
+            int v = analyzer.countVowels(combined);
+            int c = analyzer.countConsonants(combined);
 
-            for (char c : combined.toCharArray()) {
-                if ("AEIOU".indexOf(c) >= 0) {
-                    vowels++;
-                } else if (Character.isLetter(c)) {
-                    consonants++;
-                }
-            }
-
-            if (vowels > consonants) {
-                int count = 0;
-                StringBuilder sb = new StringBuilder();
-                for (char c : combined.toCharArray()) {
-                    if ("AEIOU".indexOf(c) >= 0 && sb.indexOf(String.valueOf(c)) < 0) {
-                        sb.append(c);
-                        count++;
-                        if (count == 2) break;
-                    }
-                }
-                System.out.println("First 2 unique vowels: " + sb);
-            } else if (consonants > vowels) {
-                int count = 0;
-                StringBuilder sb = new StringBuilder();
-                for (char c : combined.toCharArray()) {
-                    if (Character.isLetter(c) && "AEIOU".indexOf(c) < 0
-                            && sb.indexOf(String.valueOf(c)) < 0) {
-                        sb.append(c);
-                        count++;
-                        if (count == 2) break;
-                    }
-                }
-                System.out.println("First 2 unique consonants: " + sb);
+            if (v > c) {
+                System.out.println("First 2 unique vowels: " + analyzer.firstTwoUnique(combined, true));
+            } else if (c > v) {
+                System.out.println("First 2 unique consonants: " + analyzer.firstTwoUnique(combined, false));
             } else {
                 System.out.println("Vowels and consonants are equal");
             }

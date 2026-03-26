@@ -23,7 +23,20 @@ public class LexicalTwistPuzzle {
             String transformed = rev.toLowerCase().replaceAll("[aeiou]", "@");
             System.out.println("Transformed: " + transformed);
         } else {
-            System.out.println("Not a reverse pair.");
+            String combined = (w1 + w2).toUpperCase();
+            int vowels = 0;
+            int consonants = 0;
+
+            for (char c : combined.toCharArray()) {
+                if ("AEIOU".indexOf(c) >= 0) {
+                    vowels++;
+                } else if (Character.isLetter(c)) {
+                    consonants++;
+                }
+            }
+
+            System.out.println("Combined: " + combined);
+            System.out.println("Vowels: " + vowels + ", Consonants: " + consonants);
         }
 
         sc.close();
